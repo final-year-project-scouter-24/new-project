@@ -10,9 +10,61 @@
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <link href="{{ url_for('static', filename='css/test.css') }}" rel="stylesheet">
     <script src="{{ url_for('static', filename='js/newjs.js') }}" type="text/javascript"></script>
+
+    <!-- CSS for the chatbot button -->
+    <!--style>
+        .chatbot-btn {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            z-index: 9999;
+        }
+    </!--style-->
+    <style>
+        .chatbot-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 9999;
+        }
+
+        .chatbot-btn img {
+            width: 100px; /* Adjust the width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .preview-btn {
+            position: fixed;
+            right: 20px;
+            top: 410px;
+            z-index: 9999;
+            background-color: rgba(0, 0, 255, 0.599);
+            border-radius: 10px; /* Adjust the value to control the roundness of the corners */
+            padding: 5px 3px; /* Add padding to make the button look better */
+            text-decoration: none; /* Remove underline */
+            display: inline-block; /* Ensure the button behaves like a block element */
+        }
+
+        .preview-btn:hover {
+            text-decoration: none; /* Remove underline on hover */
+}
+
+        .preview-btn h4 {
+            color: azure;
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Chatbot button -->
+    <a href="/templates/cboat.html" class="chatbot-btn">
+        <img src="https://img.freepik.com/free-vector/chatbot-conversation-vectorart_78370-4107.jpg?size=338&ext=jpg&ga=GA1.1.1369675164.1715385600&semt=sph" alt="Chatbot">
+    </a>
+
+    <a href="#" class="preview-btn">
+           <h4>view report</h4>
+    </a>
+
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">Brain Tumor Classification Using Deep Learning</a>
@@ -24,9 +76,6 @@
 
 </body>
 
-
 </html>
-
-
 
 

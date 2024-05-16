@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Tumor Detection Chatbot</title>
+        <link rel="stylesheet" href="/templates/cboat.css"> <!-- Assuming your CSS file is named styles.css and is in the same directory as your HTML file -->
+
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-box"></div>
+        <div id="options">
+            <button class="option" onclick="selectOption('Yes')">Yes</button>
+            <button class="option" onclick="selectOption('No')">No</button>
+        </div>
+        <input type="text" id="user-input" placeholder="Type your choice...">
+        <button id="send-btn" onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const optionsContainer = document.getElementById('options');
+
+        const questions = [
+            { question: "Do you experience frequent headaches?" },
+            { question: "Do you have difficulty with balance or coordination?" },
+            { question: "Have you noticed changes in your vision, such as double vision or loss of peripheral vision?" },
+            { question: "Have you experienced seizures or convulsions?" },
+
+            
+            { question: "Do you feel weak or numb in any part of your body?" },
+            { question: "Have you had persistent nausea or vomiting, unrelated to other conditions?" },
+            { question: "Have you experienced changes in your speech, such as slurred speech or difficulty finding words?" },
+            { question: "Do you have difficulty with memory or concentration?" },
+            { question: "Have you noticed changes in your personality or behavior?" },
+            { question: "Do you experience persistent dizziness or vertigo?" },
+            { question: "Have you had difficulty sleeping, such as insomnia or excessive sleepiness?" },
+            { question: "Do you feel unusually fatigued or tired, even after adequate rest?" },
+            { question: "Have you experienced unexplained mood swings or irritability?" },
+            { question: "Do you have trouble regulating your emotions, such as sudden outbursts of anger or crying?" },
+            { question: "Have you noticed changes in your appetite, such as significant weight loss or gain?" },
+            { question: "Do you feel anxious or worried most of the time?" },
+            { question: "Have you experienced feelings of hopelessness or worthlessness?" },
+            { question: "Do you have trouble enjoying activities you once found pleasurable?" },
+            { question: "Have you had persistent feelings of sadness or emptiness?" },
+            { question: "Do you feel disconnected from reality or experience hallucinations?" },
+            { question: "Have you had thoughts of self-harm or suicide?" },
+            { question: "Do you find it difficult to cope with stress or everyday tasks?" },
+            { question: "Do you have trouble forming or maintaining relationships with others?" },
+            { question: "Have you noticed a decline in your overall cognitive abilities, such as problem-solving or decision-making?" },
+            { question: "Do you feel overwhelmed or unable to handle your responsibilities?" },
+            { question: "Have you experienced changes in your sense of taste or smell?" },
+            { question: "Do you have difficulty concentrating on tasks or conversations?" },
+            { question: "Have you had persistent muscle weakness or loss of coordination?" },
+            { question: "Do you feel more forgetful or confused than usual?" },
+            { question: "Have you experienced changes in your bowel or bladder habits, such as constipation or incontinence?" },
+            // Additional questions related to brain tumor symptoms and mental well-being
+            { question: "Have you experienced sudden changes in mood or behavior without apparent reason?" },
+            { question: "Do you have trouble finding the right words when speaking?" },
+            { question: "Have you had episodes of unexplained anger or aggression?" },
+            { question: "Do you feel disoriented or confused about time, place, or person?" },
+            { question: "Have you experienced sudden, severe headaches that are different from your usual headaches?" },
+            { question: "Do you have difficulty understanding or following instructions?" },
+ 
+            // Add more questions related to brain tumor symptoms...
+            // Ensure to include questions related to mental health and daily life cycle as well
+        ];
+
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+
+        function askQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                const { question } = questions[currentQuestionIndex];
+                appendMessage(question, 'bot');
+                optionsContainer.style.display = 'block';
+            } else {
+                recommendAction();
+            }
+        }
+
+        function appendMessage(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', sender);
+            messageElement.textContent = message;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function selectOption(option) {
+            userAnswers.push(option.toLowerCase());
+            appendMessage(option, 'user');
+            currentQuestionIndex++;
+            askQuestion();
+        }
+
+        function sendMessage() {
+            const userInputText = userInput.value.trim();
+            if (userInputText !== '') {
+                userAnswers.push(userInputText.toLowerCase());
+                appendMessage(userInputText, 'user');
+                userInput.value = '';
+                currentQuestionIndex++;
+                askQuestion();
+            }
+        }
+
+        function recommendAction() {
+            const yesCount = userAnswers.filter(answer => answer.toLowerCase() === 'yes').length;
+            const percentageYes = (yesCount / userAnswers.length) * 100;
+            if (percentageYes >= 50) {
+                appendMessage("Based on your answers, it's recommended to consult a doctor.", 'bot');
+            } else {
+                appendMessage("Based on your answers, it seems you might not need immediate medical consultation. However, it's always best to consult a doctor for a thorough evaluation.", 'bot');
+            }
+            optionsContainer.style.display = 'none';
+        }
+
+        // Initial question
+        askQuestion();
+    </script>
+</body>
+</html>
